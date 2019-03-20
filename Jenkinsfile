@@ -1,14 +1,22 @@
- 
+
 pipeline 
 {
     agent any
     stages 
     {
+        stage ('Clone') 
+        {
+            steps 
+            {
+               // git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
+                
+            }
+        }
        
         stage ('Exec Maven') {
             steps {
                 /*rtMavenRun (
-                    tool: Maven_Home, // Tool name from Jenkins configuration
+                    tool: maven_3_5_4, // Tool name from Jenkins configuration
                     pom: 'maven-example/pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER",
@@ -18,7 +26,7 @@ pipeline
                 sh 'mvn clean install'
             }
         }
-           stage('Results') {
+       stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.jar'
    }
