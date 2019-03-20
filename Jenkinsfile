@@ -8,8 +8,8 @@ pipeline
         {
             steps 
             {
-                //git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
-                echo "tttt"
+                git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
+                //echo "tttt"
             }
         }
        
