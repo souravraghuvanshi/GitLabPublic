@@ -4,14 +4,6 @@ pipeline
     agent any
     stages 
     {
-        stage ('Clone') 
-        {
-            steps 
-            {
-                //git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
-                echo "tttt"
-            }
-        }
        
         stage ('Exec Maven') {
             steps {
@@ -26,6 +18,10 @@ pipeline
                 sh 'mvn clean install'
             }
         }
+           stage('Results') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archive 'target/*.jar'
+   }
     }
 } 
  
