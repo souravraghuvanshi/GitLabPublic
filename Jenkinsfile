@@ -23,7 +23,7 @@ pipeline
                     resolverId: "MAVEN_RESOLVER"
                 )*/
                 
-                mvn clean install
+                sh 'mvn clean install'
             }
         }
     }
