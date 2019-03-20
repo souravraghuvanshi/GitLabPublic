@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
+                //git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
+                echo "tttt"
             }
         }
        
