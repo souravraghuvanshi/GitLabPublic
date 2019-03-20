@@ -8,12 +8,12 @@ pipeline
         {
             steps 
             {
-                git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
-                //echo "tttt"
+                //git branch: 'master', url: "https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git"
+                echo "tttt"
             }
         }
        
-        /* stage ('Exec Maven') {
+        stage ('Exec Maven') {
             steps {
                 rtMavenRun (
                     tool: Maven_Home, // Tool name from Jenkins configuration
@@ -23,7 +23,7 @@ pipeline
                     resolverId: "MAVEN_RESOLVER"
                 )
             }
-        }*/
+        }
     }
 } 
  
