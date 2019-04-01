@@ -1,7 +1,7 @@
 node{
   stage ('Build') {
  
-    git url: 'https://git.nagarro.com/devopscoe/training/souravraghuvanshi'
+    git url: 'https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git'
  
     withMaven(
         // Maven installation declared in the Jenkins "Global Tool Configuration"
