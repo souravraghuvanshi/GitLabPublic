@@ -1,18 +1,29 @@
-node{
-  stage ('Build') {
- 
-    git url: 'https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git'
- 
-    withMaven(
-        // Maven installation declared in the Jenkins "Global Tool Configuration"
-        maven: 'M3',
+pipeline {
+    agent any
+    stages {
+        stage ('Compile Stage') {
+            steps {
+                withMaven(maven: 'maven_3_5_4') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
         
-        mavenSettingsConfig: 'my-maven-settings',
-        mavenLocalRepo: '.repository') {
- 
-      // Run the maven build
-      sh "mvn clean install"
- 
-    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
-  }
+        stage ('Testing Stage') {
+            steps {
+                withMaven(maven: 'maven_3_5_4') {
+                    sh 'mvn test'
+                }
+            }
+        }
+        
+        stage('Packaging Phase') {
+            steps {
+                withMaven(maven : 'maven_3_5_4') {
+                    sh 'mvn package'
+                }
+            }
+        }
+        
+    }
 }
