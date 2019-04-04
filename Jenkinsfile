@@ -1,29 +1,26 @@
-pipeline {
-    agent any
-    stages {
-        stage ('Compile Stage') {
-            steps {
-                withMaven(maven: 'maven_3_5_4') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-        
-        stage ('Testing Stage') {
-            steps {
-                withMaven(maven: 'maven_3_5_4') {
-                    sh 'mvn test'
-                }
-            }
-        }
-        
-        stage('Packaging Phase') {
-            steps {
-                withMaven(maven : 'maven_3_5_4') {
-                    sh 'mvn package'
-                }
-            }
-        }
-        
+node {
+    def server = Artifactory.server 'artifactory'
+    def rtMaven = Artifactory.newMavenBuild()
+    def buildInfo
+    def mvnHome
+    stage ('Clone') {
+        git url: 'https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git'
+    }
+
+    stage ('Artifactory configuration') {
+        mvnHome = tool 'Maven_Home'
+        rtMaven.tool = 'Maven_Home' // Tool name from Jenkins configuration
+        rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+        rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+        buildInfo = Artifactory.newBuildInfo()
+        buildInfo.env.capture = true
+    }
+
+    stage ('Exec Maven') {
+        rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+    }
+
+    stage ('Publish build info') {
+        server.publishBuildInfo buildInfo
     }
 }
