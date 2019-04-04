@@ -4,7 +4,7 @@ node {
     def buildInfo
     def mvnHome
     stage ('Clone') {
-        git url: 'https://git.nagarro.com/devopscoe/training/souravraghuvanshi.git'
+        git url: 'https://github.com/souravraghuvanshi/GitLabPublic.git'
     }
 
     stage ('Artifactory configuration') {
